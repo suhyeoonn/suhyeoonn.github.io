@@ -1,5 +1,5 @@
 ---
-title: "초보자를 위한 스프링부트 실습: 할일 관리 프로젝트 #1"
+title: 초보자를 위한 스프링부트 실습 - 할일 관리 프로젝트 1
 date: 2024-07-17 11:00:00 +/-TTTT
 categories: [JAVA, 스프링 부트]
 tags: [스프링부트, 스프링부트 실습] # TAG names should always be lowercase
