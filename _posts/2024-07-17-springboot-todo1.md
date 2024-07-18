@@ -35,7 +35,7 @@ media_subpath: /assets/img/2024-07-17-springboot-todo1-image1.png
 {: .prompt-tip }
 
 저는 프로젝트 설정을 다음과 같이 했으니 참고해 주세요!
-![alt text](page.media_subpath)
+![alt text]({{page.media_subpath}})
 _스프링 부트 스타터 설정_
 
 - 프로젝트 선택
