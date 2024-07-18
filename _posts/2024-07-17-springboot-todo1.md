@@ -4,7 +4,6 @@ date: 2024-07-17 11:00:00 +/-TTTT
 categories: [JAVA, 스프링 부트]
 tags: [스프링부트, 스프링부트 실습, springboot] # TAG names should always be lowercase
 description: 할일 관리 홈 화면 추가하기
-media_subpath: /assets/img/2024-07-17-springboot-todo1-image1.png
 ---
 
 최근 자바 공부를 시작했는데 주변 추천을 받아 김영한님의 `스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술`을 완강했습니다. 생각보다 DI, 테스트 코드 작성 등 자세히 설명해 주셔서 왜 인기 많은지 알겠더군요.
@@ -35,7 +34,7 @@ media_subpath: /assets/img/2024-07-17-springboot-todo1-image1.png
 {: .prompt-tip }
 
 저는 프로젝트 설정을 다음과 같이 했으니 참고해 주세요!
-![alt text]({{page.media_subpath}})
+![alt text](/assets/img/2024-07-17-springboot-todo1-image1.png)
 _스프링 부트 스타터 설정_
 
 - 프로젝트 선택
