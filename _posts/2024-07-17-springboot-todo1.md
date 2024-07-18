@@ -1,6 +1,5 @@
 ---
 title: 초보자를 위한 스프링부트 실습 - 할일 관리 프로젝트 1
-date: 2024-07-17 11:00:00 +/-TTTT
 categories: [JAVA, 스프링 부트]
 tags: [스프링부트, 스프링부트 실습, springboot] # TAG names should always be lowercase
 description: 할일 관리 홈 화면 추가하기
@@ -34,7 +33,7 @@ description: 할일 관리 홈 화면 추가하기
 {: .prompt-tip }
 
 저는 프로젝트 설정을 다음과 같이 했으니 참고해 주세요!
-![alt text](/assets/img/2024-07-17-springboot-todo1-image1.png)
+![alt text](/assets/2024-07-17-springboot-todo1-image1.png)
 _스프링 부트 스타터 설정_
 
 - 프로젝트 선택
