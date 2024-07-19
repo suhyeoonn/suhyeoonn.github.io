@@ -33,6 +33,9 @@ description: 할일 관리 홈 화면 추가하기
 
 저는 프로젝트 설정을 다음과 같이 했으니 참고해 주세요!
 
+![프로젝트 설정](/assets/img/2024-07-17-springboot-todo1-image1.png)
+_프로젝트 설정_
+
 - 프로젝트 선택
   - Project: Gradle - Groovy Project 
   - Spring Boot: 3.x.x
