@@ -33,8 +33,6 @@ description: 할일 관리 홈 화면 추가하기
 {: .prompt-tip }
 
 저는 프로젝트 설정을 다음과 같이 했으니 참고해 주세요!
-<!-- ![alt text](/assets/2024-07-17-springboot-todo1-image1.png) -->
-_스프링 부트 스타터 설정_
 
 - 프로젝트 선택
   - Project: Gradle - Groovy Project 
