@@ -1,5 +1,5 @@
 ---
-title: 초보자를 위한 스프링부트 실습 - 할일 관리 프로젝트 1
+title: 초보자를 위한 스프링부트 투두리스트 - 1. 홈 화면 추가하기
 categories: [JAVA, 스프링 부트]
 tags: [스프링부트, 스프링부트 실습, springboot] # TAG names should always be lowercase
 description: 할일 관리 홈 화면 추가하기
@@ -17,7 +17,7 @@ description: 할일 관리 홈 화면 추가하기
 
 ## ✅ 할일 관리 프로젝트
 
-- 회원 관리처럼 할일을 등록하고 조회할 수 있는 매우 간단한 프로젝트입니다.
+- 회원 관리처럼 할일을 등록하고 조회만 할 수 있는 매우 간단한 프로젝트입니다.
 - 이번 프로젝트는 DI를 사용하지 않습니다.👀
 
 > DI(Dependency Injection)는 스프링 부트뿐만 아니라 프로그래밍 전반에서 널리 사용하는 패턴으로, 의존성을 줄이고 유연성을 높여줍니다. 하지만 처음 접하거나 익숙하지 않은 경우, DI의 필요성을 충분히 이해하기 어려울 수 있습니다. 이번 프로젝트에서는 DI 없이 작업해보면서 DI가 왜 중요한지 직접 체감해보려 합니다. 이를 통해 DI의 장점을 더 명확하게 이해하고, 실무에서의 사용 이유를 깊이 있게 알 수 있을 것입니다.
@@ -91,7 +91,7 @@ public class HomeController {
 </html>
 ```
 
-전체 코드는 [missions/1 브랜치](https://github.com/suhyeoonn/springboot-todolist/blob/missions/1/src/main/java/com/todolist/controller/HomeController.java)에서 확인 가능합니다.
+전체 코드는 [missions/1](https://github.com/suhyeoonn/springboot-todolist/blob/missions/1/src/main/java/com/todolist/controller/HomeController.java) 브랜치에서 확인 가능합니다.
 
 ---
 
