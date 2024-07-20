@@ -1,6 +1,6 @@
 ---
 title: Java 순차 증가 PK 데이터 타입 Long vs Int
-date: 2024-07-19 11:00:00 +/-TTTT
+date: 2024-07-20 11:00:00 +/-TTTT
 categories: [JAVA]
 tags: [Java] # TAG names should always be lowercase
 description: 할일 관리 홈 화면 추가하기
