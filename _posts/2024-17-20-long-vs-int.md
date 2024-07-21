@@ -3,7 +3,7 @@ title: Java 순차 증가 PK 데이터 타입 Long vs Int
 date: 2024-07-20 11:00:00 +/-TTTT
 categories: [JAVA]
 tags: [Java] # TAG names should always be lowercase
-description: 할일 관리 홈 화면 추가하기
+description: Long 및 Int 타입 비교 및 경험 공유
 ---
 
 [할일 관리 프로젝트의 Todo 도메인](/_site/posts/springboot-todo2/index.html#도메인)에서는 `id`의 데이터 타입으로 `long`을 사용하였습니다.
@@ -23,6 +23,8 @@ public class Todo {
     // ...
 }
 ```
+
+## int와 long 비교
 
 `int` 와 `long` 둘 다 정수를 저장하는 타입이며, `long`이 더 큰 숫자를 저장할 수 있습니다.
 
