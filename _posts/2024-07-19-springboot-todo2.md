@@ -47,7 +47,7 @@ public class Todo {
 > 게터, 세터는 단축키 `cmd + N` > `getter 및 setter` 로 간편하게 추가 가능합니다. (윈도우: `alt + Insert`)
 {: .prompt-tip }
 
-> `id` 데이터 타입을 `Long` 대신 `Int`를 사용하면 안 될까요? 궁금하시다면 [여기](#)를 참고해 주세요.
+> `id` 데이터 타입을 `Long` 대신 `Int`를 사용하면 안 될까요? 궁금하시다면 [여기](https://suhyeoonn.github.io/posts/long-vs-int/)를 참고해 주세요.
 {: .prompt-info }
 
 ### 리포지토리
