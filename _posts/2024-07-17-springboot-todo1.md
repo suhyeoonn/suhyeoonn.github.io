@@ -1,7 +1,7 @@
 ---
 title: 스프링부트 TODO LIST - 1. 리스트화면 구현
 categories: [JAVA, 스프링 부트]
-tags: [스프링부트, 스프링부트 실습, springboot] # TAG names should always be lowercase
+tags: [스프링부트, 투두리스트, springboot] # TAG names should always be lowercase
 description: 스프링부트 투두리스트 할일 관리 리스트화면 구현하기
 ---
 
@@ -59,8 +59,8 @@ _프로젝트 설정_
 <body>
 <div>
     <form>
-        <label for="todo">할일 입력</label>
-        <input type="text" id="todo">
+        <label for="content">할일 입력</label>
+        <input type="text" id="content">
         <button>추가</button>
     </form>
 </div>
