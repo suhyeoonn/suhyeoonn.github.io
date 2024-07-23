@@ -1,40 +1,28 @@
 ---
-title: 초보자를 위한 스프링부트 투두리스트 - 1. 홈 화면 추가하기
+title: 스프링부트 TODO LIST - 1. 리스트화면 구현
 categories: [JAVA, 스프링 부트]
 tags: [스프링부트, 스프링부트 실습, springboot] # TAG names should always be lowercase
-description: 할일 관리 홈 화면 추가하기
-published: false
+description: 스프링부트 투두리스트 할일 관리 리스트화면 구현하기
 ---
 
-최근 자바 공부를 시작했는데 주변 추천을 받아 김영한님의 `스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술`을 완강했습니다. 생각보다 DI, 테스트 코드 작성 등 자세히 설명해 주셔서 왜 인기 많은지 알겠더군요.
+최근 자바 공부를 시작했는데 주변 추천을 받아 김영한님의 `스프링 입문 - 코드로 배우는 스프링 부트, 웹 MVC, DB 접근 기술`을 완강했다. 생각보다 DI, 테스트 코드 작성 등 자세히 설명해 주셔서 왜 인기 많은지 이해가 갔다.
 
-배운 걸 토대로 간단하게 연습하면서 스프링 부트와 친해지고, 저처럼 자바 개발에 도전하는 사람들에게도 도움이 되기를 바라며 `초보자를 위한 스프링부트 실습` 프로젝트를 시작해보려고 합니다.
-
-아직 [스프링 입문]({{page.inflearn_link}}) 강의를 다 못 보셨다면 먼저 시청 후 이 글을 봐주시고, 포스트마다 미션이 주어지니 스스로 해보신 후 글을 봐주시면 좋을 것 같아요.😊
-
-글에서 잘못된 부분이 있다면 알려주시면 감사하겠습니다.
+배운 걸 토대로 간단하게 연습해 보고자 투두리스트를 만들어 보려고 한다.
 
 ---
 
 ## ✅ 할일 관리 프로젝트
-
-- 회원 관리처럼 할일을 등록하고 조회만 할 수 있는 매우 간단한 프로젝트입니다.
-- 이번 프로젝트는 DI를 사용하지 않습니다.👀
-
-> DI(Dependency Injection)는 스프링 부트뿐만 아니라 프로그래밍 전반에서 널리 사용하는 패턴으로, 의존성을 줄이고 유연성을 높여줍니다. 하지만 처음 접하거나 익숙하지 않은 경우, DI의 필요성을 충분히 이해하기 어려울 수 있습니다. 이번 프로젝트에서는 DI 없이 작업해보면서 DI가 왜 중요한지 직접 체감해보려 합니다. 이를 통해 DI의 장점을 더 명확하게 이해하고, 실무에서의 사용 이유를 깊이 있게 알 수 있을 것입니다.
-{: .prompt-info }
+- 할 일을 추가하고 삭제할 수 있다. (수정은 불가능👀)
+- 완료된 할 일은 취소선으로 표시된다.
+- 할 일을 추가할 때 카테고리를 선택할 수 있으며 리스트에 카테고리가 같이 표시된다.
+- 처음에는 메모리에 저장되지만, 여유가 되면 MySQL 연동도 시도해보려 한다.
+- 강의에서는 DI를 사용하던데, 이건 간단해서 우선 DI 없이 작업해 보려 한다. (이후에 필요하다면 추가할 예정)
 
 ## 🛠️ 사전 준비
 
-스프링 부트 스타터로 프로젝트를 생성하고 환경 설정을 해주세요.
-사용하는 라이브러리는 강의와 동일하게 `Spring Web`, `Thymeleaf`를 사용합니다.
+[스프링 부트 스타터](https://start.spring.io/)로 프로젝트를 생성하고 환경 설정. 사용하는 라이브러리는 강의와 동일하게 `Spring Web`, `Thymeleaf`를 사용한다.
 
-> 기억이 잘 안 나시나요? `스프링 입문: 세션1 - 프로젝트 환경설정` 강의를 참고해주세요.
-{: .prompt-tip }
-
-저는 프로젝트 설정을 다음과 같이 했으니 참고해 주세요!
-
-![프로젝트 설정](/assets/img/2024-07-17-springboot-todo1-image1.png)
+![프로젝트 설정](/assets/img/posts/2024-07-17/2024-07-17-springboot-todo1-image1.png)
 _프로젝트 설정_
 
 - 프로젝트 선택
@@ -48,55 +36,292 @@ _프로젝트 설정_
   - artifactId: todolist
 - Dependencies: Spring Web, Thymeleaf
 
-빌드 후 실행해서 `http://localhost:8080` 에 접속이 잘 되는지 확인해 주세요.
+빌드 후 실행해서 `http://localhost:8080` 에 접속이 잘 되는지 확인. 아직 컨트롤러 작업을 하지 않아 접속 시 에러가 나타난다.
 
-## 🎯 미션! 홈 화면 추가하기
+## 🎯 리스트 화면 추가
 
-`할일 관리` 라는 h1 태그와 `할일 등록`, `할일 관리`라는 a 태그로 구성된 홈 화면을 추가해 주세요.
-![홈 화면 예시](/assets/img/home.png)
-_홈 화면_
+1. list.html 추가
+    1. `li` 태그로 할 일을 임시로 추가하고, 할 일을 등록할 `input`, `button`도 추가해준다.
+2. 컨트롤러 추가
+    1. 컨트롤러를 추가하여 `/` 에 접속 시 리스트화면이 출력되는지 확인한다.
 
-> 기억이 잘 안 나시나요? `스프링 입문: 회원 웹 기능 - 홈 화면 추가` 강의를 참고해 주세요.
-{: .prompt-tip }
+### list.html
 
-## 🚀 구현하기
-모두 완료하셨나요? 이제 결과를 확인해 봅시다!
+경로: src/main/resources/templates/todo/list.html
+
+```html 
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+    <form>
+        <label for="todo">할일 입력</label>
+        <input type="text" id="todo">
+        <button>추가</button>
+    </form>
+</div>
+<ul>
+    <li>
+        <div>
+            <label><input type="checkbox">자바 강의 보기</label><button>x</button>
+        </div>
+        <div>카테고리: 공부</div>
+    </li>
+    <li>
+        <div>
+            <label><input type="checkbox">빨래 하기</label><button>x</button>
+        </div>
+        <div>카테고리: 집안일</div>
+    </li>
+</ul>
+</body>
+</html>
+```
 
 ### 컨트롤러
 
+경로: src/main/java/com/todolist/controller/TodoController.java
+
 ```java
-package com.todolist.controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-
 @Controller
-public class HomeController {
+public class TodoController {
     @GetMapping("/")
-    public String home() {
-        return "home";
+    public String list() {
+        return "todo/list";
+    }
+}
+```
+
+## 🎯 Todo, Category 도메인 추가
+
+### Todo
+
+```java
+package com.todolist.domain;
+
+public class Todo {
+    private Long id;
+    private String content;
+    private Category category;
+
+    public Todo(String content, Category category) {
+        this.content = content;
+        this.category = category;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public Category getCategory() {
+        return category;
     }
 }
 
 ```
 
-### 템플릿 파일
+### Category
 
-```html
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<h1>할일 관리</h1>
-<div>
-    <a href="/todos/new">할일 등록</a>
-    <a href="/todos">할일 목록</a>
-</div>
-</body>
-</html>
+```java
+package com.todolist.domain;
+
+public enum Category {
+    STUDY, HOUSEWORK
+}
+
 ```
 
-전체 코드는 [missions/1](https://github.com/suhyeoonn/springboot-todolist/blob/missions/1/src/main/java/com/todolist/controller/HomeController.java) 브랜치에서 확인 가능합니다.
+## 🎯 Repository 및 테스트 코드 추가
+
+`TodoRepository` 클래스를 만들고, 강의처럼 `Map`에 할 일을 저장하고 모두 가져오는 메서드를 추가한다. `findById` 메서드는 테스트 용도로 추가했다.
+
+```java
+package com.todolist.repository;
+
+import com.todolist.domain.Todo;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository
+public class TodoRepository {
+    private static Map<Long, Todo> store = new HashMap<>();
+    private static long sequence = 0L;
+
+    public Todo save(Todo todo) {
+        todo.setId(++sequence);
+        store.put(todo.getId(), todo);
+        return todo;
+    }
+
+    public Todo findById(Long id) {
+        return store.get(id);
+    }
+
+    public List<Todo> findAll() {
+        return new ArrayList<>(store.values());
+    }
+}
+
+```
+
+리포지토리 코드가 잘 동작하는지 확인하기 위해 테스트 코드를 추가한다.
+
+> `cmd + N` / `alt + Insert` > `테스트...` 에서 간편하게 테스트 메서드를 추가 가능
+{: .prompt-tip }
+
+```java
+class TodoRepositoryTest {
+    private final TodoRepository repository = new TodoRepository();
+
+    @Test
+    void save() {
+        Todo todo = new Todo("todo", Category.STUDY);
+
+        repository.save(todo);
+
+        Todo result = repository.findById(todo.getId());
+        assertThat(todo).isEqualTo(result);
+    }
+
+    @Test
+    void findAll() {
+        Todo todo1 = new Todo("todo1", Category.STUDY);
+        repository.save(todo1);
+        Todo todo2 = new Todo("todo2", Category.HOUSEWORK);
+        repository.save(todo2);
+
+        List<Todo> result = repository.findAll();
+
+        assertThat(result.size()).isEqualTo(2);
+    }
+}
+```
+
+## 🎯 Service 및 테스트 코드 추가
+`TodoService` 클래스를 만들고 추가, 조회하는 메서드를 추가한다.
+
+```java
+package com.todolist.service;
+
+import com.todolist.domain.Todo;
+import com.todolist.repository.TodoRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TodoService {
+    private final TodoRepository repository = new TodoRepository();
+
+    public Long createTodo(Todo todo) {
+        repository.save(todo);
+        return todo.getId();
+    }
+
+    public List<Todo> findTodos() {
+        return repository.findAll();
+    }
+}
+
+```
+
+마찬가지로 테스트 코드를 작성한다.
+
+```java
+package com.todolist.service;
+
+import com.todolist.domain.Category;
+import com.todolist.domain.Todo;
+import com.todolist.repository.TodoRepository;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+class TodoServiceTest {
+
+    private final TodoService service = new TodoService();
+    private final TodoRepository repository = new TodoRepository();
+
+    @Test
+    void createTodo() {
+        Todo todo = new Todo("todo", Category.STUDY);
+
+        Long id = service.createTodo(todo);
+
+        assertThat(todo.getId()).isEqualTo(repository.findById(id).getId());
+    }
+
+    @Test
+    void findTodos() {
+        Todo todo1 = new Todo("todo1", Category.STUDY);
+        service.createTodo(todo1);
+        Todo todo2 = new Todo("todo2", Category.HOUSEWORK);
+        service.createTodo(todo2);
+
+        List<Todo> result = service.findTodos();
+        assertThat(result.size()).isEqualTo(2);
+    }
+}
+```
+
+![테스트 코드 실행 결과](/assets/img/posts/2024-07-17/테스트코드실행결과.png)
+_잘 된다👍_
+
+
+## 🎯 템플릿 파일에 Todo 배열 전달
+
+컨트롤러를 수정하여 Todo 리스트를 전달한다. 아직 등록 기능이 구현되지 않아 직접 2개 정도 추가하였다.
+
+```java
+@GetMapping("/")
+    public String list(Model model) {
+        // 등록 기능 구현 후 제거 예정
+        service.createTodo(new Todo("todo1", Category.STUDY));
+        service.createTodo(new Todo("todo2", Category.HOUSEWORK));
+
+        model.addAttribute("todos", service.findTodos());
+
+        return "todo/list";
+    }
+```
+
+html 파일도 수정한다.
+
+```html
+<ul>
+    <li th:each="todo : ${todos}">
+        <div>
+            <label><input type="checkbox" th:text="${todo.content}"></label><button>x</button>
+        </div>
+        <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
+    </li>
+</ul>
+```
+
+![리스트화면실행결과](/assets/img/posts/2024-07-17/리스트화면실행결과.png)
+_리스트 화면 실행 결과 🎉_
 
 ---
 
-🎉 고생하셨습니다! 이제 다음 미션을 도전해 보세요.
+다음에는 할 일 등록 기능을 구현해보자.
+
+>전체 코드는 [여기](https://github.com/suhyeoonn/springboot-todolist)에서 확인 가능합니다.
+{: .prompt-info }
