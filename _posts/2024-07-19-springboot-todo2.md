@@ -66,7 +66,7 @@ public class TodoRepository {
     }
 }
 ```
-> `++sequence` 와 `sequence++`의 차이점을 아시나요? 모르신다면 [이 글](#)을 참고해 주세요.
+> `++sequence` 와 `sequence++`의 차이점을 아시나요? 모르신다면 [이 글](https://suhyeoonn.github.io/posts/%EC%A6%9D%EA%B0%80%EC%97%B0%EC%82%B0%EC%9E%90/)을 참고해 주세요.
 {: .prompt-warning }
 
 ## 🎯 미션! 2. 리포지토리 테스트코드 작성하기
