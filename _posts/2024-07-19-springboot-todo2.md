@@ -1,9 +1,9 @@
 ---
 title: 스프링부트 TODO LIST - 2. 할일 추가, 삭제 기능 구현
 date: 2024-07-19 11:00:00 +/-TTTT
-categories: [JAVA, 스프링 부트]
+categories: [스프링부트]
 tags: [스프링부트, 투두리스트, springboot] # TAG names should always be lowercase
-description: 할일 등록 리포지토리 구현 및 테스트하기
+description: 스프링부트 투두리스트 할 일 추가, 삭제 기능 구현하기
 ---
 
 ## 🎯 할일 추가

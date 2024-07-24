@@ -1,6 +1,6 @@
 ---
 title: 스프링부트 TODO LIST - 1. 리스트화면 구현
-categories: [JAVA, 스프링 부트]
+categories: [스프링부트]
 tags: [스프링부트, 투두리스트, springboot] # TAG names should always be lowercase
 description: 스프링부트 투두리스트 할일 관리 리스트화면 구현하기
 ---
