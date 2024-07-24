@@ -15,7 +15,6 @@ description: 스프링부트 투두리스트 할일 관리 리스트화면 구�
 - 할 일을 추가하고 삭제할 수 있다. (수정은 불가능👀)
 - 완료된 할 일은 취소선으로 표시된다.
 - 할 일을 추가할 때 카테고리를 선택할 수 있으며 리스트에 카테고리가 같이 표시된다.
-- 처음에는 메모리에 저장되지만, 여유가 되면 MySQL 연동도 시도해보려 한다.
 - 강의에서는 DI를 사용하던데, 이건 간단해서 우선 DI 없이 작업해 보려 한다. (이후에 필요하다면 추가할 예정)
 
 ## 🛠️ 사전 준비
@@ -40,12 +39,8 @@ _프로젝트 설정_
 
 ## 🎯 리스트 화면 추가
 
-1. list.html 추가
-    1. `li` 태그로 할 일을 임시로 추가하고, 할 일을 등록할 `input`, `button`도 추가해준다.
-2. 컨트롤러 추가
-    1. 컨트롤러를 추가하여 `/` 에 접속 시 리스트화면이 출력되는지 확인한다.
-
 ### list.html
+`li` 태그로 할 일을 임시로 추가하고, 할 일을 등록할 `input`, `button`도 추가해준다.
 
 경로: src/main/resources/templates/todo/list.html
 
@@ -84,6 +79,8 @@ _프로젝트 설정_
 
 ### 컨트롤러
 
+컨트롤러를 추가하여 `/` 에 접속 시 리스트화면이 출력되는지 확인한다.
+
 경로: src/main/java/com/todolist/controller/TodoController.java
 
 ```java
@@ -96,9 +93,11 @@ public class TodoController {
 }
 ```
 
-## 🎯 Todo, Category 도메인 추가
+## 🎯 Todo 리스트 가져오기
+추가한 리스트화면에 Todo 목록을 가져오도록 작업한다.
+### Todo, Category 도메인 추가
 
-### Todo
+Todo 도메인 추가
 
 ```java
 package com.todolist.domain;
@@ -131,8 +130,7 @@ public class Todo {
 }
 
 ```
-
-### Category
+카테고리 도메인 추가
 
 ```java
 package com.todolist.domain;
@@ -143,7 +141,7 @@ public enum Category {
 
 ```
 
-## 🎯 Repository 및 테스트 코드 추가
+### Repository 및 테스트 코드 추가
 
 `TodoRepository` 클래스를 만들고, 강의처럼 `Map`에 할 일을 저장하고 모두 가져오는 메서드를 추가한다. `findById` 메서드는 테스트 용도로 추가했다.
 
@@ -213,7 +211,7 @@ class TodoRepositoryTest {
 }
 ```
 
-## 🎯 Service 및 테스트 코드 추가
+### Service 및 테스트 코드 추가
 `TodoService` 클래스를 만들고 추가, 조회하는 메서드를 추가한다.
 
 ```java
@@ -286,21 +284,21 @@ class TodoServiceTest {
 _잘 된다👍_
 
 
-## 🎯 템플릿 파일에 Todo 배열 전달
+### 템플릿 파일에 Todo 배열 전달
 
 컨트롤러를 수정하여 Todo 리스트를 전달한다. 아직 등록 기능이 구현되지 않아 직접 2개 정도 추가하였다.
 
 ```java
 @GetMapping("/")
-    public String list(Model model) {
-        // 등록 기능 구현 후 제거 예정
-        service.createTodo(new Todo("todo1", Category.STUDY));
-        service.createTodo(new Todo("todo2", Category.HOUSEWORK));
+public String list(Model model) {
+    // 등록 기능 구현 후 제거 예정
+    service.createTodo(new Todo("todo1", Category.STUDY));
+    service.createTodo(new Todo("todo2", Category.HOUSEWORK));
 
-        model.addAttribute("todos", service.findTodos());
+    model.addAttribute("todos", service.findTodos());
 
-        return "todo/list";
-    }
+    return "todo/list";
+}
 ```
 
 html 파일도 수정한다.
@@ -309,7 +307,8 @@ html 파일도 수정한다.
 <ul>
     <li th:each="todo : ${todos}">
         <div>
-            <label><input type="checkbox" th:text="${todo.content}"></label><button>x</button>
+            <label><input type="checkbox" th:text="${todo.content}"></label>
+            <button>x</button>
         </div>
         <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
     </li>
@@ -321,7 +320,7 @@ _리스트 화면 실행 결과 🎉_
 
 ---
 
-다음에는 할 일 등록 기능을 구현해보자.
+다음에는 할 일 등록 및 삭제 기능을 구현해보자.
 
 >전체 코드는 [여기](https://github.com/suhyeoonn/springboot-todolist)에서 확인 가능합니다.
 {: .prompt-info }
