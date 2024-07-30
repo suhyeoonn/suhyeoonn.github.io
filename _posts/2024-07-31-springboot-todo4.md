@@ -1,6 +1,6 @@
 ---
 title: 스프링부트 TODO LIST - 4. 부트스트랩 적용
-date: 2024-07-31 11:00:00 +/-TTTT
+date: 2024-07-31 7:00:00 +/-TTTT
 categories: [스프링부트]
 tags: [스프링부트, 투두리스트, springboot, bootstrap] # TAG names should always be lowercase
 description: 스프링부트 투두리스트를 Bootstrap 사용하여 디자인 변경
