@@ -12,10 +12,12 @@ description: 스프링부트 투두리스트 할일 관리 리스트화면 구�
 ---
 
 ## ✅ 할일 관리 프로젝트
+
+![결과물](/assets/img/posts/2024-07-31/result.png)
+
 - 할 일을 추가하고 삭제할 수 있다. (수정은 불가능👀)
 - 완료된 할 일은 취소선으로 표시된다.
 - 할 일을 추가할 때 카테고리를 선택할 수 있으며 리스트에 카테고리가 같이 표시된다.
-- 강의에서는 DI를 사용하던데, 이건 간단해서 우선 DI 없이 작업해 보려 한다. (이후에 필요하다면 추가할 예정)
 
 ## 🛠️ 사전 준비
 
@@ -25,11 +27,11 @@ description: 스프링부트 투두리스트 할일 관리 리스트화면 구�
 _프로젝트 설정_
 
 - 프로젝트 선택
-  - Project: Gradle - Groovy Project 
+  - Project: Gradle - Groovy Project
   - Spring Boot: 3.x.x
   - Language: Java
   - Packaging: Jar
-  - Java: 17 
+  - Java: 17
 - Project Metadata
   - group: com.todolist
   - artifactId: todolist
@@ -40,40 +42,42 @@ _프로젝트 설정_
 ## 🎯 리스트 화면 추가
 
 ### list.html
+
 `li` 태그로 할 일을 임시로 추가하고, 할 일을 등록할 `input`, `button`도 추가해준다.
 
 경로: src/main/resources/templates/todo/list.html
 
-```html 
-<!DOCTYPE HTML>
+```html
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</head>
-<body>
-<div>
-    <form>
+  </head>
+  <body>
+    <div>
+      <form>
         <label for="content">할일 입력</label>
-        <input type="text" id="content">
+        <input type="text" id="content" />
         <button>추가</button>
-    </form>
-</div>
-<ul>
-    <li>
+      </form>
+    </div>
+    <ul>
+      <li>
         <div>
-            <label><input type="checkbox">자바 강의 보기</label><button>x</button>
+          <label><input type="checkbox" />자바 강의 보기</label
+          ><button>x</button>
         </div>
         <div>카테고리: 공부</div>
-    </li>
-    <li>
+      </li>
+      <li>
         <div>
-            <label><input type="checkbox">빨래 하기</label><button>x</button>
+          <label><input type="checkbox" />빨래 하기</label><button>x</button>
         </div>
         <div>카테고리: 집안일</div>
-    </li>
-</ul>
-</body>
+      </li>
+    </ul>
+  </body>
 </html>
 ```
 
@@ -94,7 +98,9 @@ public class TodoController {
 ```
 
 ## 🎯 Todo 리스트 가져오기
+
 추가한 리스트화면에 Todo 목록을 가져오도록 작업한다.
+
 ### Todo, Category 도메인 추가
 
 Todo 도메인 추가
@@ -130,6 +136,7 @@ public class Todo {
 }
 
 ```
+
 카테고리 도메인 추가
 
 ```java
@@ -212,6 +219,7 @@ class TodoRepositoryTest {
 ```
 
 ### Service 및 테스트 코드 추가
+
 `TodoService` 클래스를 만들고 추가, 조회하는 메서드를 추가한다.
 
 ```java
@@ -283,7 +291,6 @@ class TodoServiceTest {
 ![테스트 코드 실행 결과](/assets/img/posts/2024-07-17/테스트코드실행결과.png)
 _잘 된다👍_
 
-
 ### 템플릿 파일에 Todo 배열 전달
 
 컨트롤러를 수정하여 Todo 리스트를 전달한다. 아직 등록 기능이 구현되지 않아 직접 2개 정도 추가하였다.
@@ -305,13 +312,13 @@ html 파일도 수정한다.
 
 ```html
 <ul>
-    <li th:each="todo : ${todos}">
-        <div>
-            <label><input type="checkbox" th:text="${todo.content}"></label>
-            <button>x</button>
-        </div>
-        <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
-    </li>
+  <li th:each="todo : ${todos}">
+    <div>
+      <label><input type="checkbox" th:text="${todo.content}" /></label>
+      <button>x</button>
+    </div>
+    <div th:text="${'카테고리: '+todo.category}">카테고리: 공부</div>
+  </li>
 </ul>
 ```
 
@@ -322,5 +329,5 @@ _리스트 화면 실행 결과 🎉_
 
 다음에는 할 일 등록 및 삭제 기능을 구현해보자.
 
->전체 코드는 [여기](https://github.com/suhyeoonn/springboot-todolist)에서 확인 가능합니다.
+> 전체 코드는 [여기](https://github.com/suhyeoonn/springboot-todolist)에서 확인 가능합니다.
 {: .prompt-info }
