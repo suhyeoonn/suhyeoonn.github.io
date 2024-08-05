@@ -41,7 +41,7 @@ html 코드에 부트스트랩 클래스 적용
 
 ```html
 <body class="container mt-5 w-50 bg-body-secondary">
-<div class="bg-white p-5 rounded">
+<div class="bg-white p-5 rounded shadow">
     <form action="/todos/new" method="post" class="d-flex justify-content-center align-items-end mb-4">
         <div class="me-2 flex-fill">
             <label for="category" class="form-label">카테고리</label>
@@ -58,7 +58,7 @@ html 코드에 부트스트랩 클래스 적용
     </form>
 
     <ul class="list-group">
-        <li th:each="todo : ${todos}" class="list-group-item border-0 rounded d-flex flex-column mb-2"
+        <li th:each="todo : ${todos}" class="list-group-item border-0 rounded d-flex flex-column mb-3 shadow-sm"
             style="background-color: #f4f6f7;">
             <div class="d-flex align-items-center justify-content-between">
                 <label><input type="checkbox" th:text="${todo.content}" class="form-check-input me-2"
