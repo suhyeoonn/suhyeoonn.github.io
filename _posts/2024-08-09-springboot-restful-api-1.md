@@ -8,7 +8,7 @@ description: 스프링부트 RESTful API 실습하기 - 프로젝트 생성편
 
 [이전](https://suhyeoonn.github.io/posts/springboot-todo1/)에는 MVC 패턴을 사용하여 메모리 기반의 투두리스트를 만들었다. 이번에는 책 리뷰 공유 웹사이트를 만들어 RESTful API를 실습하고 데이터베이스와 연동해보자. 이번 프로젝트에서는 프론트엔드 작업 없이 이미 완성된 프론트 결과물을 연동하여 백엔드와의 통합을 진행할 예정이다.
 
-## 프로젝트 소개
+## 📋 프로젝트 소개
 
 ### 프로젝트명
 
@@ -88,8 +88,7 @@ Book Rating - 책 리뷰 공유 웹사이트
 | review_text | TEXT        | -                              | 리뷰 내용                |
 | created_at  | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP      | 리뷰 등록 시간           |
 
-
-## 스프링부트 프로젝트 생성
+## 🌱 스프링부트 프로젝트 생성
 
 [start.spring.io](https://start.spring.io/) 에 접속하여 프로젝트를 설정한다.
 
@@ -121,7 +120,7 @@ Project, Language, Spring Boot는 모두 기본값 그대로 두었다.
 ![localhost:8080 접속](/assets/img/posts/2024-08-09/루트접속확인.png)
 _localhost:8080 접속_
 
-## 애플리케이션 환경 설정
+## ⚙️ 애플리케이션 환경 설정
 
 src/main/resources/application.properties에 데이터베이스 관련 설정 추가
 
@@ -157,8 +156,7 @@ spring.datasource.url=jdbc:h2:mem:testdb
 
 ![db접속성공화면](/assets/img/posts/2024-08-09/db접속성공화면.png)
 
-
-## 테이블 생성 확인
+## ✅ 테이블 생성 확인
 
 book 테이블은 `id`, `isbn`, `title` 컬럼이 있다. 이를 토대로 Book 엔티티를 만들고 테이블이 생성되는지 확인하자.
 
