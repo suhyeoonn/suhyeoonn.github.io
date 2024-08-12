@@ -46,48 +46,6 @@ Book Rating - 책 리뷰 공유 웹사이트
 - 리뷰를 수정할 수 있다.
 - 리뷰를 삭제할 수 있다.
 
-### DB 설계
-
-**book**
-
-책의 기본 정보를 저장하는 테이블
-
-| 컬럼 이름 | 데이터 타입  | 제약 조건                   | 설명                       |
-| --------- | ------------ | --------------------------- | -------------------------- |
-| id        | INT          | PRIMARY KEY, AUTO_INCREMENT | 고유 식별자 (자동 증가)    |
-| isbn      | VARCHAR(13)  | UNIQUE, NOT NULL            | 국제 표준 도서 번호 (ISBN) |
-| title     | VARCHAR(255) | NOT NULL                    | 책 제목                    |
-
-**tag**
-
-태그 정보를 저장하는 테이블. 이 프로젝트에서 태그 설정 기능 없이 테이블에 저장된 고정값만 사용하려고 한다.
-
-| 컬럼 이름 | 데이터 타입  | 제약 조건                   | 설명                    |
-| --------- | ------------ | --------------------------- | ----------------------- |
-| id        | INT          | PRIMARY KEY, AUTO_INCREMENT | 고유 식별자 (자동 증가) |
-| name      | VARCHAR(100) | UNIQUE, NOT NULL            | 태그 이름               |
-
-**book_tag**
-
-책과 태그 간의 다대다 관계를 표현하는 조인 테이블
-
-| 컬럼 이름 | 데이터 타입 | 제약 조건   | 설명                     |
-| --------- | ----------- | ----------- | ------------------------ |
-| book_id   | INT         | FOREIGN KEY | Books 테이블의 id를 참조 |
-| tag_id    | INT         | FOREIGN KEY | Tags 테이블의 id를 참조  |
-
-**review**
-
-책에 대한 리뷰를 저장하는 테이블
-
-| 컬럼 이름   | 데이터 타입 | 제약 조건                      | 설명                     |
-| ----------- | ----------- | ------------------------------ | ------------------------ |
-| id          | INT         | PRIMARY KEY, AUTO_INCREMENT    | 고유 식별자 (자동 증가)  |
-| book_id     | INT         | FOREIGN KEY                    | books 테이블의 id를 참조 |
-| rating      | TINYINT     | CHECK (rating BETWEEN 1 AND 5) | 별점 (1에서 5 사이)      |
-| review_text | TEXT        | -                              | 리뷰 내용                |
-| created_at  | TIMESTAMP   | DEFAULT CURRENT_TIMESTAMP      | 리뷰 등록 시간           |
-
 ## 🌱 스프링부트 프로젝트 생성
 
 [start.spring.io](https://start.spring.io/) 에 접속하여 프로젝트를 설정한다.
@@ -131,7 +89,6 @@ spring.h2.console.enabled=true
 spring.jpa.defer-datasource-initialization=true
 logging.level.org.hibernate.SQL=DEBUG
 spring.jpa.properties.hibernate.format_sql=true
-logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
 spring.datasource.url=jdbc:h2:mem:testdb
 ```
 
@@ -143,8 +100,6 @@ spring.datasource.url=jdbc:h2:mem:testdb
   - Hibernate의 SQL 쿼리 로깅 수준을 DEBUG로 설정하여 SQL 쿼리를 로그에 상세히 기록
 - spring.jpa.properties.hibernate.format_sql=true
   - 가독성을 위해 쿼리 줄바꿈
-- logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
-  - `?`로 표시된 SQL 쿼리 파라미터의 실제 값을 로그에 표시
 - spring.datasource.url=jdbc:h2:mem:testdb
   - 데이터베이스 URL 지정. 지정하지 않을 시 매번 바뀌어서 웹 콘솔로 접근 시 번거로움.
 
@@ -158,10 +113,10 @@ spring.datasource.url=jdbc:h2:mem:testdb
 
 ## ✅ 테이블 생성 확인
 
-book 테이블은 `id`, `isbn`, `title` 컬럼이 있다. 이를 토대로 Book 엔티티를 만들고 테이블이 생성되는지 확인하자.
-
 > JPA에서 엔티티는 데이터베이스 테이블과 매핑되는 클래스이다. 이를 기반으로 테이블이 만들어진다.
 {: .prompt-tip }
+
+`id`, `isbn`, `title` 를 속성으로 가지는 Book 엔티티를 만들자.
 
 ### Book 엔티티
 
@@ -170,18 +125,21 @@ package com.example.bookrating.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String isbn;
     private String title;
 }
+
 ```
 
 - JPA Entity에는 `@Enitity` 어노테이션이 필요하다.
