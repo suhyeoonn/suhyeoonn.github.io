@@ -1,5 +1,5 @@
 ---
-title: 스프링부트 REST API 만들기 - Book API CRUD
+title: 스프링부트 REST API 만들기 - 1. Book API CRUD
 date: 2024-08-09 11:00:00 +/-TTTT
 categories: [스프링부트]
 tags: [스프링부트, springboot, restful api] # TAG names should always be lowercase
@@ -665,3 +665,6 @@ public class BookController {
 ![delete_api_test_400](/assets/img/posts/2024-08-09/delete_api_test_400.png)
 
 이렇게 기본적인 CRUD를 모두 구현하였다. 다음 편에서는 책 등록 시 태그도 같이 넘기고 태그 수정이 가능하도록 개선하자.
+
+> 전체 코드는 [book-rating-backend 저장소의 chapter1-end 브랜치](https://github.com/suhyeoonn/book-rating-backend/tree/chapter1-end)에서 확인 가능합니다.
+{: .prompt-info }
