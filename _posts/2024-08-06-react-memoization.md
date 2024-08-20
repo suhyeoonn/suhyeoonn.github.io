@@ -1,24 +1,41 @@
 ---
-title: 리액트 메모이제이션 - memo, useCallback
+title: 메모이제이션과 리액트 memo
 date: 2024-08-06 19:00:00 +/-TTTT
 categories: [React]
-tags: [javascript, react] # TAG names should always be lowercase
-description: 리액트 메모이제이션 개념 정리 및 관련 API 알아보기
+tags: [javascript, react, TIL] # TAG names should always be lowercase
+description: 메모이제이션 개념 정리 및 리액트 memo 알아보기
 ---
 
-## 메모이제이션이 뭐지?
+## **메모이제이션이 뭐지?**
 
-**메모이제이션**(memoization)은 컴퓨터 프로그램이 동일한 계산을 반복해야 할 때, 이전에 계산한 값을 메모리에 저장함으로써 동일한 계산의 반복 수행을 제거하여 프로그램 실행 속도를 빠르게 하는 기술이다. - [위키백과](https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98) -
+> **메모이제이션**(memoization)은 컴퓨터 프로그램이 동일한 계산을 반복해야 할 때, 이전에 계산한 값을 메모리에 저장함으로써 동일한 계산의 반복 수행을 제거하여 프로그램 실행 속도를 빠르게 하는 기술이다.
+> _메모이제이션을 글자 그대로 해석하면 ‘메모리에 넣기’라는 의미이다_
+>
+> \- [위키백과](https://ko.wikipedia.org/wiki/%EB%A9%94%EB%AA%A8%EC%9D%B4%EC%A0%9C%EC%9D%B4%EC%85%98) -
 
-_메모이제이션은 글자 그대로 해석하면 ‘메모리에 넣기’라는 의미이다_
+메모이제이션은 리액트에서만 사용되는 개념이 아닌, 프로그래밍에 널리 사용되는 기술이다.
 
-### 캐싱과 비슷한건가?🤔
+**Q. [왜 메모라이제이션이라고 안하고 메모이제이션이라고 하나요?](https://stackoverflow.com/questions/77884747/why-is-it-called-memoization)**
 
-메모이제이션(memoization)과 캐싱(caching)은 기본적으로 비슷한 개념입니다.
+A. "메모이제이션”은 단순히 무언가를 기억하는 “암기”와는 다르며, 특정한 목적(성능 향상)으로 무언가를 기억하는 것을 의미하기 위해 만들어진 용어입니다.
 
-캐싱은 자주 사용하는 데이터나 결과를 저장하여 접근 속도를 개선하기 위해 사용하는 데 반해, 메모이제이션은 **동일한 입력값에 대해 함수의 결과를 재사용**하여 연산을 줄인다.
+## **캐싱과 비슷한건가?🤔**
 
-예를 들어, 다음과 같은 `add` 함수가 있다.
+내가 이해한 바론, 캐싱과 같은 거라고 볼 수 있다. 다만, 캐싱은 접근 속도를 개선하기 위해 무언가를 저장하는 모든 것에 대한 포괄적인 개념이라면 메모이제이션은 함수와 관련된 캐싱이라고 볼 수 있다.
+
+[여기](https://www.geeksforgeeks.org/what-is-memoization-a-complete-tutorial/) 에서는 이렇게 설명한다.
+
+> 메모이제이션은 실제로 특정 유형의 캐싱입니다. 캐싱이라는 용어는 일반적으로 나중에 사용할 수 있는 모든 저장 기술(예: HTTP 캐싱)을 지칭할 수 있지만 메모이제이션은 값을 반환하는 캐싱 함수를 보다 구체적으로 지칭합니다.
+
+[스택 오버플로우](https://stackoverflow.com/questions/6469437/what-is-the-difference-between-caching-and-memoization)에서도 동일한 질문이 있는데, 답변은 다음과 같다.
+
+> **메모이제이션 은 함수의 매개변수에 따라 함수의 반환 값을 캐싱** 하는 특정 형태의 캐싱입니다 .
+
+따라서, 메모이제이션은 캐싱이긴한데 함수의 반환 값을 캐싱하는 것이다.
+
+### 메모이제이션 구현 예제
+
+어떤 식으로 반환 값을 캐싱한다는 건지 좀 더 이해해보자. 예를 들어, 다음과 같은 `add` 함수가 있다.
 
 ```jsx
 function add(a, b) {
@@ -26,9 +43,17 @@ function add(a, b) {
 }
 ```
 
-이 함수를 메모이제이션 한다면 `add(1+2)` 을 한 번 호출하여 결과(3)를 저장한 후, 이후에 또 다시 `add(1+2)`가 호출될 때 더하기 연산을 하는 것이 아니라 그 결과값인 3을 바로 반환하는 것이다.
+다음처럼 같은 매개변수 1, 2를 전달하여 함수를 여러 번 호출한다고 치자.
 
-### 메모이제이션 구현 예제
+```jsx
+add(1, 2);
+add(1, 2);
+add(1, 2);
+```
+
+원래라면 매번 1+2 연산을 할 것이다. 그런데 이걸 메모이제이션 한다면?
+
+`add(1+2)` 을 한 번 호출하여 결과(3)를 어딘가에 저장한 후, 이후에 또 다시 `add(1+2)`가 호출될 때 더하기 연산을 하는 것이 아니라 **이미 저장된 결과값인 3을 바로 반환**하는 것이다.
 
 다음은 메모이제이션을 구현하는 간단한 예제이다.
 
@@ -65,13 +90,13 @@ console.log(memoizedAdd(2, 3)); // 5
 
 이렇게 하면 동일한 인자로 함수가 호출될 때마다 계산을 반복하지 않고, 저장된 결과를 효율적으로 재사용할 수 있다.
 
-## 리액트 메모이제이션
+## **React.memo: 컴포넌트 리렌더링 최적화**
 
-React에서는 메모이제이션 개념을 컴포넌트 렌더링에 적용하여, 동일한 props가 전달될 때 컴포넌트가 재렌더링되지 않도록 한다. 이는 컴포넌트가 불필요하게 재렌더링되는 것을 방지하여 앱의 성능을 향상시키는 데 도움을 준다.
+React.memo는 컴포넌트를 메모이제이션하여 불필요한 리렌더링을 방지하는 데 사용된다. 컴포넌트가 동일한 props를 받는 경우, React.memo는 해당 컴포넌트를 다시 렌더링하지 않고, 이전 렌더링 결과를 재사용한다.
 
-메모이제이션과 관련된 3개의 리액트 API를 알아보자.
+말로만 봐서는 무슨 말인지 모르겠다. 아래 예제를 보면서 이해해보자.
 
-## memo: props가 변경될 때만 리렌더링
+### memo: props가 변경될 때만 리렌더링
 
 React는 일반적으로 부모가 리렌더링될 때마다 컴포넌트를 리렌더링한다. `memo`를 사용하면 부모가 리렌더링될 때 새로운 props가 이전 props와 동일하면 리렌더링 되지 않는 컴포넌트를 만들 수 있다. 이러한 컴포넌트를 _memoized_ 상태라고 한다.
 
@@ -114,9 +139,9 @@ const Greeting = memo(function Greeting({ name }) {
 ### props 비교 방식
 
 주의! **prop가 객체, 배열 또는 함수인 경우 컴포넌트가 리렌더링됩니다.** 
-`memo`는 배열, 객체 또는 함수와 같은 props가 전달되는 경우에 **완전히 무용지물이**다. 이 경우 [`useMemo`](https://ko.react.dev/reference/react/useMemo#skipping-re-rendering-of-components)와 [`useCallback`](https://ko.react.dev/reference/react/useCallback#skipping-re-rendering-of-components) 가 필요할 수 있다. (밑에서 다시 다룰 예정)
+`memo`는 배열, 객체 또는 함수와 같은 props가 전달되는 경우에 완전히 무용지물이다. 이 경우 [`useMemo`](https://ko.react.dev/reference/react/useMemo#skipping-re-rendering-of-components)와 [`useCallback`](https://ko.react.dev/reference/react/useCallback#skipping-re-rendering-of-components) 가 필요할 수 있다.
 
-React는 얕은 비교를 기준으로 이전 props와 새로운 props를 비교한다.
+React는 **얕은 비교**를 기준으로 이전 props와 새로운 props를 비교한다.
 
 ```jsx
 const obj1 = { name: "clap" };
@@ -130,80 +155,3 @@ console.log(obj1 === obj2); // false
 즉, 각각의 새로운 prop가 이전 prop와 참조가 동일한지 여부를 고려한다. 부모가 리렌더링 될 때마다 새로운 객체나 배열을 생성하면, 개별 요소들이 모두 동일하더라도 React는 여전히 변경된 것으로 간주한다. 마찬가지로 부모 컴포넌트를 렌더링할 때 새로운 함수를 만들면 React는 함수의 정의가 동일하더라도 변경된 것으로 간주한다.
 
 이 경우 [`useCallback`](https://ko.react.dev/reference/react/useCallback#skipping-re-rendering-of-components) 와 [`useMemo`](https://ko.react.dev/reference/react/useMemo#skipping-re-rendering-of-components) 가 필요할 수 있다.
-
-## useCallback: 함수 정의 캐싱
-
-`useCallback`은 리렌더링 간에 함수 정의를 캐싱해 주는 훅(hook)이다.
-
-[공식 문서에 나오는 예제](https://ko.react.dev/reference/react/useCallback#usage)를 통해 알아보자.
-
-```jsx
-function ProductPage({ productId, referrer, theme }) {
-  // theme이 바뀔때마다 다른 함수가 될 것입니다...
-  function handleSubmit(orderDetails) {
-    post("/product/" + productId + "/buy", {
-      referrer,
-      orderDetails,
-    });
-  }
-
-  return (
-    <div className={theme}>
-      {/* ... 그래서 ShippingForm의 props는 같은 값이 아니므로 매번 리렌더링 할 것입니다.*/}
-      <ShippingForm onSubmit={handleSubmit} />
-    </div>
-  );
-}
-
-const ShippingForm = memo(function ShippingForm({ onSubmit }) {
-  // ...
-});
-```
-
-ShippingForm의 onSubmit props로 전달하는 handleSubmit 함수는 ProductPage가 렌더링될 때마다 handleSubmit 함수가 새로 만들어지기에, ShippingForm을 memo로 감쌌더라도 재렌더링 되는 문제가 있다.
-
-여기서 알아야 할 점은
-
-1. 기본적으로, 컴포넌트가 리렌더링할 때 React는 이것의 모든 자식을 재귀적으로 재렌더링한다.
-   1. ProductPage 의 props가 변경되어 재렌더링될 경우 자식 컴포넌트인 ShippingForm은 기본적으로 재린더렝된다. 물론 지금은 memo를 사용해서 ShippingForm의 props가 변경되었을 때만 재렌더링되도록 한 상태이다.
-2. 자바스크립트에서 함수는 객체이다. ([참고](https://ko.javascript.info/function-object))
-
-   1. 위의 props 비교 방식의 객체 비교 예시와 마찬가지로 함수도 내부 코드가 동일하더라도 비교해보면 다른 함수로 판단된다.
-
-      ```jsx
-      const a = () => {
-        console.log("hi");
-      };
-
-      const b = () => {
-        console.log("hi");
-      };
-
-      console.log(a === b); // false
-      ```
-
-따라서, `ShippingForm` 의 onSubmit prop은 절대 같아질 수 없고 `memo` 최적화는 동작하지 않는 것을 의미한다. 여기서 `useCallback`이 유용하게 사용된다.
-
-```jsx
-function ProductPage({ productId, referrer, theme }) {
-  // React에게 리렌더링 간에 함수를 캐싱하도록 요청합니다...
-  const handleSubmit = useCallback(
-    (orderDetails) => {
-      post("/product/" + productId + "/buy", {
-        referrer,
-        orderDetails,
-      });
-    },
-    [productId, referrer]
-  ); // ...이 의존성이 변경되지 않는 한...
-
-  return (
-    <div className={theme}>
-      {/* ...ShippingForm은 같은 props를 받게 되고 리렌더링을 건너뛸 수 있습니다.*/}
-      <ShippingForm onSubmit={handleSubmit} />
-    </div>
-  );
-}
-```
-
-`useCallback` 사용해서 함수를 캐싱하면 기존에 메모리에 저장된 함수가 props로 전달된다. 이는 동일한 객체(_=같은 메모리 주소를 가지는 객체_)로 판단되기에 의존성이 변경되지 않는 한 ShippingForm은 리렌더링 되지 않는다.
