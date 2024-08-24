@@ -207,6 +207,6 @@ const intervalRef = useRef<NodeJS.Timeout | null>(null);
 ## 정리
 
 > - 제네릭과 초기값 타입이 일치? -> 수정 가능 (MutableRefObject)
-> - 초기값 없음? => 수정은 되나 undefined도 가짐 (MutableRefObject | undefined)
+> - 초기값 없음? => 수정은 되나 undefined도 가짐 (MutableRefObject \| undefined)
 > - 제네릭 타입에 null 없이 null로 초기화? => 수정 불가능 (RefObject)
 {: .prompt-info}
