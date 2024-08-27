@@ -7,6 +7,7 @@ description: BigInt 타입 데이터 직렬화 문제 해결 방법 알아보기
 ---
 
 > 요약: JSON.stringify 사용 시 bigint는 string으로 변환하자
+{: .prompt-info}
 
 ## 오류 및 해결 방안
 
