@@ -41,7 +41,7 @@ return res.status(200).json(data); // Error!
 > Error: TypeError Do not know how to serialize a BigInt
 {: .prompt-danger}
 
-[prisma docs](To work around this issue, use a customized implementation of `JSON.stringify`:)에서는 다음과 같이 해결하라고 소개되어 있다.
+[prisma docs](https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types#serializing-bigint)에서는 다음과 같이 해결하라고 소개되어 있다.
 > To work around this issue, use a customized implementation of `JSON.stringify`:
 >
 >```js
