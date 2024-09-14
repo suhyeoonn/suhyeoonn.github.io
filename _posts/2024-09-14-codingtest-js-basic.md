@@ -73,10 +73,70 @@ function solution(numLog) {
 - [수 조작하기1](https://school.programmers.co.kr/learn/courses/30/lessons/181926)
 - [수 조작하기2](https://school.programmers.co.kr/learn/courses/30/lessons/181925)
 
-<!-- TODO: ## 구조 분해 활용
-### 변수 값 서로 변경하기
+## 구조 분해 활용
 
-쿼리 값 구조분해
+변수 값을 서로 변경할 때 구조 분해를 활용하여 간단하게 해결할 수 있다.
+```js
+let a = 1
+let b = 2;
 
-sort 활용
- -->
+[a, b] = [b, a] // b: 1, a: 2
+```
+a에 b 값을 넣고 b에 a 값을 넣었다.
+
+`arr`는 정수 배열, `queries` 는 2차원 정수 배열이다. `queries`의 원소는 `[i, j]` 꼴인데 `arr[i]`의 값과 `arr[j]`의 값을 서로 바꿔야 해서 아래와 같이 작성했다.
+```js
+function solution(arr, queries) {
+    queries.forEach(q => {
+        const [i, j] = q
+        const [a, b] = [arr[i], arr[j]]
+        arr[j] = a
+        arr[i] = b
+    })    
+    return arr
+}
+```
+
+이때, `q`를 함수의 인수 부분에서도 바로 구조 분해가 가능하다.
+위 코드를 좀 더 간결하게 정리했다.
+```js
+function solution(arr, queries) {
+    queries.forEach(([i, j]) => {
+        [arr[j], arr[i]] = [arr[i], arr[j]]
+    })    
+    return arr
+}
+```
+
+**관련 문제**
+- [수열과 구간 쿼리 3](https://school.programmers.co.kr/learn/courses/30/lessons/181924)
+
+## || 연산자 활용
+
+특정 수 보다 값이 큰 요소들이 있을 경우 그 중 가장 작은 값을 찾고 없으면 -1를 리턴한다.
+처음에는 삼항 연산자를 사용하였다.
+
+```js
+function solution(arr, queries) {   
+    return queries.map(([s,e,k]) => {
+        const filtered = arr.slice(s, e + 1).filter(n => n > k)
+        return filtered.length > 0 ? Math.min(...filtered) : -1            
+    })
+}
+```
+
+삼항연산자 대신 sort와 `||` 를 사용할 수 있다.
+
+```js
+function solution(arr, queries) {   
+    return queries.map(([s,e,k]) => arr
+            .slice(s, e + 1)
+            .filter(n => n > k)
+            .sort((a, b) => a - b)[0] || -1)
+}
+```
+
+sort를 사용해서 요소들을 정렬한 후 만약 0번째 요소가 있으면 그 값을 반환하고 없을 경우 -1 을 반환한다.
+
+**관련 문제**
+- [수열과 구간 쿼리 2](https://school.programmers.co.kr/learn/courses/30/lessons/181923)
