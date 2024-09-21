@@ -76,39 +76,44 @@ function solution(numLog) {
 ## 구조 분해 활용
 
 변수 값을 서로 변경할 때 구조 분해를 활용하여 간단하게 해결할 수 있다.
+
 ```js
-let a = 1
+let a = 1;
 let b = 2;
 
-[a, b] = [b, a] // b: 1, a: 2
+[a, b] = [b, a]; // b: 1, a: 2
 ```
+
 a에 b 값을 넣고 b에 a 값을 넣었다.
 
 `arr`는 정수 배열, `queries` 는 2차원 정수 배열이다. `queries`의 원소는 `[i, j]` 꼴인데 `arr[i]`의 값과 `arr[j]`의 값을 서로 바꿔야 해서 아래와 같이 작성했다.
+
 ```js
 function solution(arr, queries) {
-    queries.forEach(q => {
-        const [i, j] = q
-        const [a, b] = [arr[i], arr[j]]
-        arr[j] = a
-        arr[i] = b
-    })    
-    return arr
+  queries.forEach((q) => {
+    const [i, j] = q;
+    const [a, b] = [arr[i], arr[j]];
+    arr[j] = a;
+    arr[i] = b;
+  });
+  return arr;
 }
 ```
 
 이때, `q`를 함수의 인수 부분에서도 바로 구조 분해가 가능하다.
 위 코드를 좀 더 간결하게 정리했다.
+
 ```js
 function solution(arr, queries) {
-    queries.forEach(([i, j]) => {
-        [arr[j], arr[i]] = [arr[i], arr[j]]
-    })    
-    return arr
+  queries.forEach(([i, j]) => {
+    [arr[j], arr[i]] = [arr[i], arr[j]];
+  });
+  return arr;
 }
 ```
 
 **관련 문제**
+
 - [수열과 구간 쿼리 3](https://school.programmers.co.kr/learn/courses/30/lessons/181924)
 
 ## || 연산자 활용
@@ -117,26 +122,168 @@ function solution(arr, queries) {
 처음에는 삼항 연산자를 사용하였다.
 
 ```js
-function solution(arr, queries) {   
-    return queries.map(([s,e,k]) => {
-        const filtered = arr.slice(s, e + 1).filter(n => n > k)
-        return filtered.length > 0 ? Math.min(...filtered) : -1            
-    })
+function solution(arr, queries) {
+  return queries.map(([s, e, k]) => {
+    const filtered = arr.slice(s, e + 1).filter((n) => n > k);
+    return filtered.length > 0 ? Math.min(...filtered) : -1;
+  });
 }
 ```
 
 삼항연산자 대신 sort와 `||` 를 사용할 수 있다.
 
 ```js
-function solution(arr, queries) {   
-    return queries.map(([s,e,k]) => arr
-            .slice(s, e + 1)
-            .filter(n => n > k)
-            .sort((a, b) => a - b)[0] || -1)
+function solution(arr, queries) {
+  return queries.map(
+    ([s, e, k]) =>
+      arr
+        .slice(s, e + 1)
+        .filter((n) => n > k)
+        .sort((a, b) => a - b)[0] || -1
+  );
 }
 ```
 
 sort를 사용해서 요소들을 정렬한 후 만약 0번째 요소가 있으면 그 값을 반환하고 없을 경우 -1 을 반환한다.
 
 **관련 문제**
+
 - [수열과 구간 쿼리 2](https://school.programmers.co.kr/learn/courses/30/lessons/181923)
+
+## 배열 만들기 With Array
+
+start부터 end까지의 숫자를 리스트에 담아야 한다.
+
+```js
+function solution(start_num, end_num) {
+  const answer = [];
+  for (let i = start_num; i <= end_num; i++) {
+    answer.push(i);
+  }
+  return answer;
+}
+```
+
+for문 대신 아래처럼도 가능하다.
+
+```js
+function solution(start, end) {
+  return Array(end - start + 1)
+    .fill(start)
+    .map((x, idx) => x + idx);
+}
+```
+
+- Array(end-start+1): 길이가 end-start+1 인 빈 배열 생성
+- fill(start): 배열을 'start' 값으로 채움
+- map((x, idx) => x + idx): 각 요소에 인덱스를 더함. x는 fill로 채워진 start 값, idx는 배열 인덱스.
+
+**관련 문제**
+
+- [카운트 업](https://school.programmers.co.kr/learn/courses/30/lessons/181920)
+
+## 재귀 연습
+
+```js
+function solution(x, answer = []) {
+  answer.push(x);
+  if (x === 1) {
+    return answer;
+  }
+
+  return solution(x % 2 === 0 ? x / 2 : 3 * x + 1, answer);
+}
+```
+
+**관련 문제**
+
+- [콜라츠 수열 만들기](https://school.programmers.co.kr/learn/courses/30/lessons/181919)
+
+## map vs reduce
+
+배열을 돌면서 특정 값으로 바꿀 때는 map이 더 깔끔해보인다.
+
+```js
+function solution(my_string, index_list) {
+  return index_list.reduce((str, v) => str + my_string[v], "");
+}
+
+function solution(my_string, index_list) {
+  return index_list.map((i) => my_string[i]).join("");
+}
+```
+
+위와 비슷한 문제의 풀이이다.
+
+```js
+function solution(my_strings, parts) {
+  return parts.map(([s, e], i) => my_strings[i].slice(s, e + 1)).join("");
+}
+```
+
+**관련 문제**
+
+- [글자 이어 붙여 문자열 만들기](https://school.programmers.co.kr/learn/courses/30/lessons/181915)
+- [부분 문자열 이어 붙여 문자열 만들기](https://school.programmers.co.kr/learn/courses/30/lessons/181911)
+
+## 접두사, 접미사
+
+`is_suffix`가 `my_string`의 접미사인지 확인하는 문제이다.
+처음에 아래처럼 풀었다.
+
+```js
+function solution(my_string, is_suffix) {
+  return +[...my_string].map((_, i) => my_string.slice(i)).includes(is_suffix);
+}
+```
+
+그런데 `endsWith`를 사용하면 접미사인지 간단하게 확인할 수 있다.
+
+```js
+function solution(my_string, is_suffix) {
+  return +my_string.endsWith(is_suffix);
+}
+```
+
+**관련 문제**
+
+- [접두사인지 확인하기](https://school.programmers.co.kr/learn/courses/30/lessons/181906)
+
+## 글자 n개씩 자르기
+
+```js
+function solution(my_string, m, c) {
+  return [...my_string].filter((_, i) => i % m === c - 1).join("");
+}
+```
+
+조건문 i % m === c - 1은 인덱스 i가 m으로 나누었을 때 나머지가 c - 1인 요소만을 필터링한다.
+예를 들어, m = 3이고 c = 2라면, i % 3 === 1인 요소들인 인덱스 1, 4, 7, …에 위치한 문자를 선택한다.
+
+**관련 문제**
+
+- [세로 읽기](https://school.programmers.co.kr/learn/courses/30/lessons/181904)
+- [qr code](https://school.programmers.co.kr/learn/courses/30/lessons/181903)
+
+## 특정 인덱스 이후의 값 찾기 - indexOf
+
+배열에서 특정 값의 인덱스를 찾으려면 `indexOf`를 사용하면 된다.
+
+```js
+const array = [2, 9, 9];
+array.indexOf(2); // 0
+array.indexOf(7); // -1 (7은 배열에 없음)
+```
+
+이때, 검색은 0번 인덱스부터 시작된다. 만약 시작 인덱스를 변경하고 싶으면 두 번째 파라미터로 인덱스를 설정하면 된다.
+
+```js
+const array = [2, 9, 9, 1];
+array.indexOf(9); // 1, 0번 인덱스부터 검색
+array.indexOf(9, 2); // 2, 2번 인덱스부터 검색
+array.indexOf(9, 3); // -1, 3번 인덱스 이후로는 9가 존재하지 않음
+```
+
+**관련 문제**
+
+- [가까운 1 찾기](https://school.programmers.co.kr/learn/courses/30/lessons/181898)
