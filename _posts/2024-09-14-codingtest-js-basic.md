@@ -287,3 +287,70 @@ array.indexOf(9, 3); // -1, 3번 인덱스 이후로는 9가 존재하지 않음
 **관련 문제**
 
 - [가까운 1 찾기](https://school.programmers.co.kr/learn/courses/30/lessons/181898)
+
+## 전위/후위 연산자
+
+```js
+let a = 1;
+console.log(++a); // 2
+console.log(a++); // 2 (2로 출력된 후 3으로 증가)
+console.log(a); // 3
+```
+
+위 코드를 실행하면 2 -> 2 -> 3 순으로 출력된다.
+
+전위 연산자는 **값 1 증가 -> a에 대입 -> a 값 사용** 순이고,
+후위 연산자는 **a 값 사용 -> 값 1 증가 -> a에 대입**이다.
+
+```js
+// ++a 전위 연산자 동작 방식
+let a = 1;
+let temp = a + 1;
+a = temp;
+console.log(a); // 2
+
+// a++ 후위 연산자 동작 방식
+let a = 1;
+console.log(a); // 1 (현재 값 사용)
+let temp = a + 1; // 그 후에 값 증가
+a = temp;
+```
+
+while문을 사용해서 arr의 요소의 값을 1씩 증가시켜 보자
+
+```js
+const arr = [1, 2, 3];
+let i = 0;
+while (i < arr.length) {
+  arr[i] += 1;
+  i++;
+}
+console.log(arr); // 2,3,4
+```
+
+이를 다음과 같이 전위/후위 연산자를 사용할 수도 있다.
+
+```js
+const arr = [1, 2, 3];
+let i = 0;
+while (i < arr.length) {
+  arr[i++]++;
+}
+console.log(arr); // 2,3,4
+```
+
+이때, arr 요소의 값에 1을 더할 때는 전위 연산자를 사용해도 동일하나 **i 값을 전위연산자로 사용해버리면** 0번 요소가 아닌 1번 요소부터 변경되고 **`Invalid array length` 에러**가 나니 주의하자.
+
+```js
+const arr = [1, 2, 3];
+let i = 0;
+while (i < arr.length) {
+  arr[++i]++; // ❗️ i가 2일 때 arr[3]을 참조하려고 시도
+}
+```
+
+배열 길이가 3이므로 범위를 벗어나 에러가 발생한다.
+
+**관련 문제**
+
+- [수열과 구간 쿼리 1](https://school.programmers.co.kr/learn/courses/30/lessons/181883)
