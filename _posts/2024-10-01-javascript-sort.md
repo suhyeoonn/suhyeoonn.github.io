@@ -129,6 +129,30 @@ arr.sort((a, b) => (a > b ? 1 : -1 || b.length - a.length));
 console.log(arr); //  ['append', 'apple', 'sand', 'seed']
 ```
 
+반대로, 아래 조건으로 정렬해보자.
+
+1. 길이가 짧은 것부터 정렬
+2. 길이가 같으면 사전 순으로
+
+```js
+const arr = ["apple", "seed", "sand", "append"];
+arr.sort((a, b) => (a.length - b.length || a > b ? 1 : -1));
+
+console.log(arr); // ['apple', 'sand', 'seed', 'append']
+```
+
+원하는 결과와 다르게 출력된다. 그 이유는 연산자 우선순위 때문이다.\
+JavaScript에서 `||` 연산자가 `?:` 삼항 연산자보다 **우선순위가 낮기 때문에**, 괄호가 없으면 `a.length - b.length || a > b`가 먼저 평가되고, 이 결과에 따라 삼항 연산자가 적용된다.
+
+```js
+const arr = ["apple", "seed", "sand", "append"];
+arr.sort((a, b) => a.length - b.length || (a > b ? 1 : -1));
+
+console.log(arr); // ['sand', 'seed', 'apple', 'append']
+```
+
+이렇게 삼항연산자에 괄호를 포함하여 `a.length - b.length || (a > b ? 1 : -1)`로 작성해야 **의도한 대로 문자열의 길이 순으로 정렬**하고, **길이가 같을 때 사전순으로 정렬**된다.
+
 ## 참고
 
 - [SORT 쉽게 사용하기! 자바스크립트 짤막 팁, 브라우저별 속도 차이까지!](https://www.youtube.com/watch?v=scjyeC74_4k)
