@@ -3,7 +3,7 @@ title: FSD 아키텍처 마이그레이션
 date: 2024-11-25 19:00:00 +/-TTTT
 categories: [React]
 tags: [javascript, react, FSD] # TAG names should always be lowercase
-description: 리액트 컴포넌트 최적화하기
+description: 기존 프로젝트에 FSD 아키텍처 적용하기
 ---
 
 ## 기존 폴더 구조
@@ -21,28 +21,14 @@ description: 리액트 컴포넌트 최적화하기
  ┣ 📂app
  ┃ ┣ 📂(other)
  ┃ ┃ ┣ 📂login
- ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┣ 📂register
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┗ 📜layout.tsx
  ┃ ┣ 📂(books)
  ┃ ┃ ┣ 📂books
  ┃ ┃ ┃ ┣ 📂[id]
- ┃ ┃ ┃ ┃ ┗ 📜page.tsx
  ┃ ┃ ┃ ┣ 📂add
- ┃ ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┃ ┣ 📜loading.tsx
- ┃ ┃ ┃ ┗ 📜page.tsx
- ┃ ┃ ┗ 📜layout.tsx
  ┃ ┣ 📂api
  ┃ ┃ ┗ 📂kakao
  ┃ ┃ ┃ ┗ 📂books
- ┃ ┃ ┃ ┃ ┗ 📜route.ts
- ┃ ┣ 📜error.tsx
- ┃ ┣ 📜favicon.ico
- ┃ ┣ 📜globals.css
- ┃ ┣ 📜layout.tsx
- ┃ ┗ 📜providers.tsx
  ┣ 📂components
  ┃ ┣ 📂auth
  ┃ ┣ 📂book
