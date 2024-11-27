@@ -355,6 +355,30 @@ FSD에서 기술적 목적에 따른 구분은 *세그먼트* 로 이루어진
 
 ```
 
+## NextJS app, pages 폴더 충돌
+
+![라우터 폴더 충돌 에러](/assets/img/posts/2024-11-21/Pasted%20image%2020241127125846.png)
+_라우터 폴더 충돌 발생_
+
+app 라우터를 사용하는데, FSD 구조를 적용한다고 추가한 pages 하위 index 파일과 충돌이 발생했다.
+[FSD 가이드 문서](https://feature-sliced.design/kr/docs/guides/tech/with-nextjs)에는 루트 경로에 app, pages 폴더를 만드는 방법이 소개되어 있다.
+
+```
+├── app                # NextJS app 폴더
+├── pages              # NextJS pages 폴더
+│   ├── README.md      # 해당 폴더의 목적과 역할에 대한 설명
+├── src
+│   ├── app            # FSD app 폴더
+│   ├── entities
+│   ├── features
+│   ├── pages          # FSD pages 폴더
+│   ├── shared
+│   ├── widgets
+```
+
+루트 경로로 기존 app 폴더를 옮기고 pages 폴더를 추가한다. 추가한 pages에는 README로 설명을 적거나 [여기](https://github.com/yunglocokid/FSD-Pure-Next.js-Template/tree/master/pages)처럼 `.gitkeep`을 추가한다.
+이렇게하면 src 하위에 app, pages는 FSD 폴더로 사용할 수 있다. 여기 [NextJS 에서의 사용 예시](https://stackblitz.com/edit/stackblitz-starters-aiez55?file=README.md)를 보고 동일하게 구성했더니 충돌이 해결되었다.
+
 ---
 
 관련된 파일들이 가까이 있으니 아직은 어색하다. 실제로 개발을 해봐야지 FSD가 나의 프로젝트와 잘 맞는 아키텍처인지 알 수 있을 것 같다. 좀 더 익숙해졌을 때 마이그레이션 선택 단계인 6~8단계도 이어서 적용해보자.

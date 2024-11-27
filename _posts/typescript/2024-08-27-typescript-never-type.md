@@ -1,8 +1,8 @@
 ---
 title: Typescript Never 타입 정리
 date: 2024-08-27 13:00:00 +/-TTTT
-categories: [javascript]
-tags: [TIL] # TAG names should always be lowercase
+categories: [typescript]
+tags: [typescript, TIL] # TAG names should always be lowercase
 description: Typescript Never 타입 소개 및 void 타입과의 비교
 ---
 
@@ -56,7 +56,7 @@ never도 리턴하지 않고, void도 리턴하지 않는데 두 개가 무슨 �
 
 > - **void** : 반환할 **값**이 없다
 > - **never** : 무언가 문제가 있어 **반환할 수 없다**. 즉, 함수가 결코 정상적으로 끝나지 않는다.
-{: .prompt-info}
+>   {: .prompt-info}
 
 void는 함수는 정상적으로 종료가 되는데 반환할 값이 없을 뿐이다. 반면, never은 함수 자체가 정상적으로 끝나지 않기 때문에 값을 반환할 수가 없다.
 
