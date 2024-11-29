@@ -1,7 +1,7 @@
 ---
 title: 노마드코더 클린 코드 챌린지 1일차
 categories: [etc]
-tags: [노개북, 노마드코더, 개발자북클럽] # TAG names should always be lowercase
+tags: [nomadcoders] # TAG names should always be lowercase
 description: 노마드코더 클린 코드 챌린지 1일차 과제 책 인증
 ---
 
