@@ -1,13 +1,13 @@
 ---
 title: TypeError Do not know how to serialize a BigInt 에러 해결
 date: 2024-08-24 23:00:00 +/-TTTT
-categories: [javascript]
+categories: [JavaScript]
 tags: [TIL] # TAG names should always be lowercase
 description: BigInt 타입 데이터 직렬화 문제 해결 방법 알아보기
 ---
 
 > 요약: JSON.stringify 사용 시 bigint는 string으로 변환하자
-{: .prompt-info}
+> {: .prompt-info}
 
 ## 오류 및 해결 방안
 
@@ -39,16 +39,17 @@ return res.status(200).json(data); // Error!
 에러 내용은 다음과 같다.
 
 > Error: TypeError Do not know how to serialize a BigInt
-{: .prompt-danger}
+> {: .prompt-danger}
 
 [prisma docs](https://www.prisma.io/docs/orm/prisma-client/special-fields-and-types#serializing-bigint)에서는 다음과 같이 해결하라고 소개되어 있다.
+
 > To work around this issue, use a customized implementation of `JSON.stringify`:
 >
->```js
->JSON.stringify(
->  this,
->  (key, value) => (typeof value === 'bigint' ? value.toString() : value) // return everything else unchanged
->)
+> ```js
+> JSON.stringify(
+>   this,
+>   (key, value) => (typeof value === "bigint" ? value.toString() : value) // return everything else unchanged
+> );
 > ```
 
 그래서 id를 string으로 변환하도록 코드를 추가하여 에러를 해결하였다.
@@ -64,7 +65,9 @@ function getTransaction(d: Transaction) {
 [여기](https://github.com/GoogleChromeLabs/jsbi/issues/30#issuecomment-953187833)에는 관련 이슈 해결 방법에 대해 여러가지 의견이 나왔는데, 그 중 하나는 몽키패치를 사용하는 방법이다.
 
 ```js
-BigInt.prototype.toJSON = function() { return this.toString() }
+BigInt.prototype.toJSON = function () {
+  return this.toString();
+};
 ```
 
 한 번만 설정하면, 모든 BigInt를 변환하는데 적용할 수 있다.
@@ -77,7 +80,7 @@ BigInt.prototype.toJSON = function() { return this.toString() }
 ```
 
 > **몽키패치란** 원래 소스코드를 변경하지 않고 실행 시 코드 기본 동작을 추가, 변경 또는 억제하는 기술이다. 몽키패치는 다른 코드나 라이브러리와의 호환성 문제를 일으킬 수 있으므로, 사용 시 주의가 필요하다.
-{: .prompt-info}
+> {: .prompt-info}
 
 참고로 [MDN 에도 Bigint 직렬화에 대한 가이드](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt#use_within_json)가 나와 있다.
 
@@ -95,7 +98,7 @@ BigInt.prototype.toJSON = function() { return this.toString() }
 
 식별자 용도로만 사용한다면 굳이 프론트에서 bigint로 변환할 필요는 없으므로, A 방식을 택했다.
 
---- 
+---
 
 이렇게 string으로 변환하는 과정을 미리 알았다면, bigint 대신 UUID를 사용하는 것이 직렬화 문제를 피하는 더 간단한 해결책이 될 수 있었을 것 같기도... 😅
 그래도 덕분에 TIL 했다!

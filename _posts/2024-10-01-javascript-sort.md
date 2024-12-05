@@ -1,7 +1,7 @@
 ---
 title: 자바스크립트 정렬 sort 메서드 정리
 date: 2024-10-01 21:00:00 +/-TTTT
-categories: [javascript]
+categories: [JavaScript]
 tags: [TIL] # TAG names should always be lowercase
 description: JavaScript 정렬 sort 메소드 사용 시 헷갈렸던 부분 정리
 ---

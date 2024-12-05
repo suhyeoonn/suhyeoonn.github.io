@@ -1,7 +1,7 @@
 ---
 title: 코딩테스트 문제 풀이 시 유용한 자바스크립트 문법 정리
 date: 2024-09-14 18:00:00 +/-TTTT
-categories: [javascript]
+categories: [JavaScript]
 tags: [TIL, 코딩테스트] # TAG names should always be lowercase
 description: 프로그래머스 코딩테스트 기초 문제 풀이에 도움이 되는 자바스크립트 문법 정리
 ---
@@ -56,9 +56,9 @@ function solution(numLog) {
 ```js
 function solution(numLog) {
   const convert = {
-    "1": "w",
+    1: "w",
     "-1": "s",
-    "10": "d",
+    10: "d",
     "-10": "a",
   };
   return numLog

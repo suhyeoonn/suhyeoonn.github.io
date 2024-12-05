@@ -88,7 +88,7 @@ async validate(payload: Payload, done: VerifiedCallback) {
 
 getServerSideProps 로 쿠키를 직접 심는 방식이다. GPT가 알려준 방식대로 코드를 적용해봤다.
 
-```ts
+```tsx
 import { getBook, getMyReviewByBookId } from "@/shared/api"; // API 호출 함수 import
 import { Breadcrumb, BookInfo, ReviewForm, MiniReviewForm } from "@/components";
 
@@ -147,7 +147,8 @@ export async function getServerSideProps(context: any) {
 ⨯ ReferenceError: Worker is not defined
 ```
 
-https://github.com/vercel/next.js/issues/10899 이 이슈와 연관있어 보이고, 해결하려면 추가 설정이 필요하다. 패스...
+[Worker is not defined, in NEXT JS 9+ #10899](https://github.com/vercel/next.js/issues/10899)
+이 이슈와 연관있어 보이고, 해결하려면 추가 설정이 필요하다. 패스...
 
 ### 헤더 인증 방식을 사용
 

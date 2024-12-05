@@ -4,6 +4,7 @@ date: 2024-07-20 11:00:00 +/-TTTT
 categories: [DB]
 tags: [database] # TAG names should always be lowercase
 description: 데이터베이스 데이터 타입 선택에 대한 실무 경험 공유
+published: false
 ---
 
 데이터베이스 테이블을 설계할 때, 어떤 데이터 타입을 선택할지 고민이 되는 경우가 많습니다. 어떤 기준으로 타입을 골라야 할까요?
@@ -24,9 +25,10 @@ description: 데이터베이스 데이터 타입 선택에 대한 실무 경험 
 미션이 최대 30개까지만 존재하므로 `tinyint`가 적절해 보입니다.
 
 > TINYINT 데이터 타입의 범위
+
 - 부호가 있는 경우(SIGNED): -128부터 127까지의 값을 저장할 수 있습니다.
 - 부호가 없는 경우(UNSIGNED): 0부터 255까지의 값을 저장할 수 있습니다.
-{: .prompt-tip }
+  {: .prompt-tip }
 
 ## 사양 제한이 없다면 무난히 INT로 가자
 
@@ -60,7 +62,7 @@ description: 데이터베이스 데이터 타입 선택에 대한 실무 경험 
 결국 삐약씨는 게임 점검을 걸어야 할지 DBA 분과 상의하고, 문제 되고 있는 다른 컬럼은 없는지 전수조사를 하게 됩니다.
 
 > DBA란 데이터베이스 관리를 전문적으로 하는 직업을 뜻합니다.
-{: .prompt-tip }
+> {: .prompt-tip }
 
 ## 그냥 ALTER TABLE로 바로 해결하면 안되나?
 
