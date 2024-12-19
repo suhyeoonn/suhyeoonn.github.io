@@ -2,7 +2,7 @@
 title: NextJS Router push와 replace 차이 및 리다이렉트 문제 해결
 categories: [NextJS]
 tags: [nextjs, auth] # TAG names should always be lowercase
-description: NextJS router의 push와 replace 차이
+description: NextJS Router에서 push와 replace의 차이를 이해하고, 로그인 리다이렉트 시 뒤로가기 문제를 해결하기
 ---
 
 로그인하지 않은 상태에서 마이페이지 진입 시 로그인 페이지로 이동한다. 이때, 뒤로가기를 누르면 다시 로그인 페이지로 돌아오는 문제가 발생했다.
