@@ -1,8 +1,8 @@
 ---
 title: 알고리즘 자료구조 스택
 date: 2024-11-02 19:00:00 +/-TTTT
-categories: [algorithm]
-tags: [TIL] # TAG names should always be lowercase
+categories: [알고리즘]
+tags: [알고리즘, 자료구조] # TAG names should always be lowercase
 description: 스택 내용 정리
 ---
 
@@ -10,7 +10,7 @@ description: 스택 내용 정리
 
 스택은 **후입선출** 원칙을 따르는 선형 자료구조이다. (회전초밥 접시, 브라우저 콜스택 등)
 
-> 선형 자료구조란? 
+> 선형 자료구조란?
 > **데이터가 일렬로 나열된 형태**로 저장되는 자료구조를 말한다.
 {: .prompt-info }
 
@@ -44,6 +44,7 @@ console.log(stack); // [10]
 ```
 
 ## 주의
+
 스택은 배열을 사용해 구현되지만, 스택의 본질적인 추상화 개념을 유지하려면 위 제약 사항을 지켜야 한다. 예를 들어, `stack = [10, 20]`과 같은 배열 형태로 값이 있을 때, `stack[0]`을 통해 첫 번째 요소 10에 접근할 경우 마지막 요소만 접근할 수 있다는 추상화 규칙을 위반하게 된다. 따라서 스택 사용 시에는 `push, pop, stack[stack.length - 1]`와 같은 방식으로만 요소에 접근하여 스택의 추상화 개념을 유지하는 것이 좋다.
 
 ## 스택 문제 풀기

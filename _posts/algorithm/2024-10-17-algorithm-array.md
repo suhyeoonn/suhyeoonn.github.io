@@ -1,8 +1,8 @@
 ---
 title: 배열과 구간 합
 date: 2024-10-17 21:00:00 +/-TTTT
-categories: [algorithm]
-tags: [TIL] # TAG names should always be lowercase
+categories: [알고리즘]
+tags: [알고리즘, 자료구조] # TAG names should always be lowercase
 description: 배열과 구간 합 내용 정리
 ---
 
@@ -18,8 +18,8 @@ description: 배열과 구간 합 내용 정리
 
 구간 합 알고리즘을 활용하려면 먼저 합 배열을 구해야 한다. 리스트 A가 있을 때 합 배열 S는 다음과 같이 정의한다.
 
-> **A[0]부터 A[i] 까지의 합**  <br>
-> S[i] = A[0] + A[1] + ... + A[i-1] + A[i] 
+> **A[0]부터 A[i] 까지의 합** <br>
+> S[i] = A[0] + A[1] + ... + A[i-1] + A[i]
 {: .prompt-info }
 
 합 배열을 미리 구해 놓으면 기존 리스트의 일정 범위의 합을 구하는 시간 복잡도가 O(N)에서 O(1)로 감소한다.
