@@ -23,7 +23,7 @@ if (!user) {
 `push`는 새로운 항목을 **히스토리 스택에 추가**한다. 뒤로가기 버튼을 눌렀을 때 이전 페이지로 돌아갈 수 있다.
 하지만 push로 로그인 URL을 스택에 쌓을 경우 히스토리 스택은 다음과 같이 된다.
 
-![push stack](/assets/img/posts/2024-12-19/url-stack-1.png)
+![push stack](/assets/img/posts/2024-12/2024-12-19/url-stack-1.png)
 _Home -> My (차단됨) -> Login_
 
 이 상태에서 뒤로가기를 누를 경우, 브라우저가 히스토리 스택에 기록된 이전 URL(My)로 이동을 시도한다. 하지만 마이페이지로 이동하자마자 리다이렉트 조건이 다시 실행되어 로그인 페이지로 돌아오는 문제가 발생한다.
@@ -33,7 +33,7 @@ _Home -> My (차단됨) -> Login_
 
 `replace`는 현재 URL을 **히스토리 스택에서 대체**한다. `replace`를 사용하면 브라우저 히스토리 스택에서 마이페이지 URL이 대체되어 기록되지 않는다. 따라서, 히스토리 스택은 다음과 같이 된다.
 
-![replace stack](/assets/img/posts/2024-12-19/url-stack-2.png)
+![replace stack](/assets/img/posts/2024-12/2024-12-19/url-stack-2.png)
 _Home -> Login_
 
 로그인 페이지에서 뒤로가기를 누르면, 더 이상 마이페이지로 돌아가지 않고 홈 메뉴로 이동하게 된다.
