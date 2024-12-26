@@ -1,7 +1,7 @@
 ---
 title: NextJS Router push와 replace 차이 및 리다이렉트 문제 해결
 categories: [NextJS]
-tags: [nextjs, auth] # TAG names should always be lowercase
+tags: [nextjs, auth, book-rating] # TAG names should always be lowercase
 description: NextJS Router에서 push와 replace의 차이를 이해하고, 로그인 리다이렉트 시 뒤로가기 문제를 해결하기
 ---
 

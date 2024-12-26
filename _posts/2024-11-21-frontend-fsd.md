@@ -2,7 +2,7 @@
 title: FSD 아키텍처 마이그레이션
 date: 2024-11-25 19:00:00 +/-TTTT
 categories: [React]
-tags: [javascript, react, FSD] # TAG names should always be lowercase
+tags: [javascript, react, FSD, book-rating] # TAG names should always be lowercase
 description: 기존 프로젝트에 FSD 아키텍처 적용하기
 ---
 

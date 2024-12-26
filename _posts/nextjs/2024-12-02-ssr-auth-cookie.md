@@ -2,7 +2,7 @@
 title: SSR에서 마주한 쿠키 기반 인증 문제
 date: 2024-12-02 19:00:00 +/-TTTT
 categories: [NextJS]
-tags: [nextjs, nestjs, auth, jwt] # TAG names should always be lowercase
+tags: [nextjs, nestjs, auth, jwt, book-rating] # TAG names should always be lowercase
 description: CSR에서 SSR로 전환 시 마주한 쿠키 기반 인증 문제와 헤더 기반 인증 전환
 ---
 
