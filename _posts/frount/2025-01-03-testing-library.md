@@ -1,26 +1,22 @@
 ---
-title: React 통합테스트 testing-library
+title: React Testing Library 사용법
 categories: [React]
 tags: [react, 테스트 자동화, book-rating] # TAG names should always be lowercase
 description: testing-library 기본 문법 정리
 ---
 
-풀스택으로 개인 프로젝트를 작업 중인데, 직접 동작을 테스트하려니 시간이 오래 걸려 테스트를 자동화하려고 한다.
+개인 프로젝트를 작업 중인데, 아직 테스트코드가 없다. TDD까지는 아니더라도 테스트 코드는 필요하다고 생각되어 알아보던 중 리액트는 Testing Library로 테스트를 하는 것 같아 사용법을 알아보고 프로젝트에 도입하려고 한다.
 
-현재 가장 큰 문제는 요구사항을 문서로 정리하지 않고 생각나는 대로 개발을 진행하다 보니 어떤 기능들이 있는지 명확한 정리된 문서가 없다는 점이다. 지금이라도 사양서를 작성할까 고민했지만, 테스트 코드를 작성하면 코드 자체가 일부 사양서의 역할도 할 수 있을 것 같아 통합 테스트를 도입하기로 했다.
+### Testing Library
 
-통합 테스트는 여러 모듈이 함께 동작할 때 시스템이 기대대로 작동하는지 검증하며, 예상치 못한 상호작용 문제를 발견하는 데 초점을 맞춘다. 이 과정에서 `testing-library`를 활용해 테스트를 자동화할 예정이다. 이를 통해 코드 품질을 높이고, 개발 속도를 유지하면서도 안정성을 확보할 수 있기를 기대한다.
-
-### testing-library
-
-testing-library는 jest를 기반으로 만들어졌으며, DOM을 쿼리하여 웹 페이지를 테스트하는 라이브러리이다. 실제 사용자가 페이지에서 사용하는 방식과 유사하게 DOM에서 노드를 쿼리하여 테스트한다.
+Testing Library는 jest를 기반으로 만들어졌으며, DOM을 쿼리하여 웹 페이지를 테스트하는 라이브러리이다. 실제 사용자가 페이지에서 사용하는 방식과 유사하게 DOM에서 노드를 쿼리하여 테스트한다.
 
 공식 문서도 설명이 잘 되어있는 편이나 한국어로 번역되지는 않았다. 어떻게 공부할지 고민했는데, 코딩앙마의 강의가 있었다.
 
 {% include embed/youtube.html id='K1w6WN7q6k8' %}
 _[React Testing Library #1 App.test.js, 간단한 테스트 작성](https://youtu.be/K1w6WN7q6k8?si=H6b0cBmq_nY2C3If)_
 
-러닝 커브가 많지 않을까 걱정했는데 정말 설명이 잘되어있어서 이거 보고 나니 괜히 겁만 먹은 것 같았다. 물론 실제로 테스트하다 보면 어려울 때도 생기겠지만 이 영상을 보고 자신감이 많이 붙었다.
+러닝 커브가 많지 않을까 걱정했는데 정말 설명이 잘되어있어서 기본 개념이 바로 이해되었다.
 
 ## 설치
 
@@ -305,3 +301,7 @@ const config: Config = {
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 export default createJestConfig(config);
 ```
+
+---
+
+강의를 다 보고 자신감이 붙었으나, 실제로 테스트 코드를 작성해 보니 mocking에 대한 이해가 부족하여 react-query, next/navigation Router를 사용하는 컴포넌트를 테스트할 때 애를 먹었다. 좀 더 공부해야겠다.
