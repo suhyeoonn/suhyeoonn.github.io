@@ -22,6 +22,12 @@ _[React Testing Library #1 App.test.js, 간단한 테스트 작성](https://yout
 
 러닝 커브가 많지 않을까 걱정했는데 정말 설명이 잘되어있어서 이거 보고 나니 괜히 겁만 먹은 것 같았다. 물론 실제로 테스트하다 보면 어려울 때도 생기겠지만 이 영상을 보고 자신감이 많이 붙었다.
 
+## 설치
+
+```
+npm install --save-dev @testing-library/react @testing-library/dom @types/react @types/react-dom @testing-library/user-event
+```
+
 ## 요소 검사
 
 ### getByRole
@@ -60,10 +66,13 @@ test("제목이 있다", () => {
 {: .prompt-tip }
 
 두 번째 파라미터로 옵션을 전달할 수도 있다. `level: 1` 로 설정하면 h1을 찾는다.
+
 ```jsx
 const titleEl = screen.getByRole("heading", { level: 1 });
 ```
+
 다른 예시를 보자.
+
 ```jsx
 export default function MyPage() {
   return (
@@ -253,4 +262,46 @@ test("tab, space, enter 동작.", async () => {
   await user.keyboard(" ");
   expect(buttonEl).toHaveTextContent("Logout");
 });
+```
+
+## 경로 문제 해결
+
+테스트 파일을 루트 경로 하위 `__test__` 폴더에 위치시켰는데 테스트 시 Cannot find moule 에러가 발생하였다.
+
+```
+Cannot find module '@/shared/contexts/AuthContext' from '__tests__/auth.test.tsx'
+
+      17 | }));
+      18 |
+    > 19 | jest.mock("@/shared/contexts/AuthContext", () => ({
+         |      ^
+      20 |   useAuth: jest.fn(),
+      21 | }));
+      22 |
+```
+
+jest.config.ts에 [moduleNameMapper](https://jestjs.io/docs/configuration#modulenamemapper-objectstring-string--arraystring)을 추가 후 test watch를 재실행하니 문제가 해결되었다.
+
+```ts
+import type { Config } from "jest";
+import nextJest from "next/jest.js";
+
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: "./",
+});
+
+// Add any custom config to be passed to Jest
+const config: Config = {
+  coverageProvider: "v8",
+  testEnvironment: "jsdom",
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1", // src 폴더를 기준으로 @를 매핑
+  },
+  // Add more setup options before each test is run
+  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+};
+
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+export default createJestConfig(config);
 ```
